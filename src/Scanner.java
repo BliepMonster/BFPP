@@ -125,6 +125,10 @@ public class Scanner {
                     line++;
                     advance();
                     break;
+                case '@':
+                    while (peek() != '\n') advance();
+                    line++;
+                    break;
                 default:
                     looping = false;
             }
