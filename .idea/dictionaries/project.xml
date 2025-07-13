@@ -2,6 +2,8 @@
   <dictionary name="project">
     <words>
       <w>lbrace</w>
+      <w>printc</w>
+      <w>printstr</w>
       <w>rbrace</w>
       <w>rname</w>
     </words>

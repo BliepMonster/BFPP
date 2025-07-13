@@ -42,6 +42,20 @@ public class Scanner {
                 return makeToken(TokenType.COMMA);
             case ';':
                 return makeToken(TokenType.SEMICOLON);
+            case '\'':
+                advance();
+                consume('\'', "Expected char literal.");
+                return makeToken(TokenType.CHAR_CONST);
+            case '"': {
+                while (peek() != '"' && !isAtEnd()) {
+                    char ch = peek();
+                    if (ch == '\n') line++;
+                    advance();
+                }
+                if (isAtEnd()) throw new ScanException("Invalid string.", line);
+                advance();
+                return makeToken(TokenType.STRING_CONST);
+            }
             default:
                 if (isAlpha(c) && isAlpha(peek())) return identifier();
                 else if (c == 'r' && isNumber(peek())) return rName();
@@ -65,6 +79,10 @@ public class Scanner {
             advance();
         }
         return makeToken(idenType());
+    }
+    void consume(char c, String message) {
+        char a = advance();
+        if (a != c) throw new ScanException(message, line);
     }
     TokenType idenType() {
         String token = source.substring(start, current);
@@ -91,6 +109,10 @@ public class Scanner {
                 return TokenType.PUT;
             case "clear":
                 return TokenType.CLEAR;
+            case "printc":
+                return TokenType.PRINTC;
+            case "printstr":
+                return TokenType.PRINTSTR;
             default:
                 throw new ScanException("Invalid literal name.", line);
         }

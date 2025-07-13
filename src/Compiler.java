@@ -210,6 +210,36 @@ public class Compiler {
                 sb.append(moveValue(CONTROL_REG, rid2));
                 break;
             }
+            case PRINTC: {
+                Token literal = advance();
+                if (literal.type != TokenType.CHAR_CONST && literal.type != TokenType.LITERAL) throw new CompilerException("Expected char literal.", literal);
+                char c;
+                if (literal.type == TokenType.CHAR_CONST) c = literal.token.charAt(1);
+                else c = (char) Integer.parseInt(literal.token);
+                sb.append(move(CONTROL_REG))
+                        .append("+".repeat(c))
+                        .append(".")
+                        .append("[-]");
+                break;
+            }
+            case PRINTSTR: {
+                Token literal = advance();
+                if (literal.type != TokenType.STRING_CONST) throw new CompilerException("Expected string.", literal);
+                String str = literal.token.substring(1, literal.token.length()-1);
+                int s0 = 0;
+                sb.append(move(CONTROL_REG));
+                for (char c : str.toCharArray()) {
+                    if (c > s0) {
+                        sb.append("+".repeat(c - s0));
+                    } else {
+                        sb.append("-".repeat(s0 - c));
+                    }
+                    sb.append(".");
+                    s0 = c;
+                }
+                sb.append("[-]");
+                break;
+            }
             default:
                 throw new CompilerException("Unknown statement.", current);
         }

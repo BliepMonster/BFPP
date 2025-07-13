@@ -1,4 +1,1 @@
-put 32, r0; @comment
-put 1, r1;
-add r0, r1, r0;
-print r0;
+printc 10;

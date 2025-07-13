@@ -24,6 +24,8 @@ enum TokenType {
     WHILE,
     PRINT,
     INPUT,
+    PRINTC,
+    PRINTSTR,
 
     RNAME, // register
     LITERAL,
@@ -32,6 +34,9 @@ enum TokenType {
     LBRACE,
     RBRACE,
     SEMICOLON,
+
+    CHAR_CONST,
+    STRING_CONST,
 
     EOF
 }
