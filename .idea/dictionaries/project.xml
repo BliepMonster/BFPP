@@ -6,6 +6,7 @@
       <w>printstr</w>
       <w>rbrace</w>
       <w>rname</w>
+      <w>rpos</w>
     </words>
   </dictionary>
 </component>

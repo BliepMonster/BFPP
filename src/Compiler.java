@@ -240,11 +240,29 @@ public class Compiler {
                 sb.append("[-]");
                 break;
             }
+            case WHILE: {
+                Token returnLocation = advance();
+                consume(TokenType.LBRACE, "Expected '{'");
+                sb.append(move(rvalue(returnLocation.token)))
+                        .append("[");
+                while (!match(TokenType.RBRACE)) {
+                    sb.append(compileStatement());
+                }
+                sb.append(move(rvalue(returnLocation.token)))
+                        .append("]");
+                break;
+            }
             default:
                 throw new CompilerException("Unknown statement.", current);
         }
         consume(TokenType.SEMICOLON, "Expected semicolon after statement.");
         return sb.toString();
+    }
+    public boolean match(TokenType type) {
+        if (tokens.get(position).type == type) {
+            position++;
+            return true;
+        } return false;
     }
     public String moveValue(int r1, int r2) {
         return move(r1) +

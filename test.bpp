@@ -1,1 +1,5 @@
-printc 10;
+put 255, r1;
+while r1 {
+    dec r1, 1;
+    print r1;
+};
