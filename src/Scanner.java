@@ -10,7 +10,7 @@ public class Scanner {
     private int line = 0;
     private int start = 0;
     private int current = 0;
-    private String source;
+    private final String source;
     public Scanner(String source) {
         this.source = source;
     }
@@ -86,36 +86,22 @@ public class Scanner {
     }
     TokenType idenType() {
         String token = source.substring(start, current);
-        switch (token) {
-            case "inc":
-                return TokenType.INC;
-            case "dec":
-                return TokenType.DEC;
-            case "add":
-                return TokenType.ADD;
-            case "sub":
-                return TokenType.SUB;
-            case "copy":
-                return TokenType.COPY;
-            case "print":
-                return TokenType.PRINT;
-            case "swap":
-                return TokenType.SWAP;
-            case "while":
-                return TokenType.WHILE;
-            case "input":
-                return TokenType.INPUT;
-            case "put":
-                return TokenType.PUT;
-            case "clear":
-                return TokenType.CLEAR;
-            case "printc":
-                return TokenType.PRINTC;
-            case "printstr":
-                return TokenType.PRINTSTR;
-            default:
-                throw new ScanException("Invalid literal name.", line);
-        }
+        return switch (token) {
+            case "inc" -> TokenType.INC;
+            case "dec" -> TokenType.DEC;
+            case "add" -> TokenType.ADD;
+            case "sub" -> TokenType.SUB;
+            case "copy" -> TokenType.COPY;
+            case "print" -> TokenType.PRINT;
+            case "swap" -> TokenType.SWAP;
+            case "while" -> TokenType.WHILE;
+            case "input" -> TokenType.INPUT;
+            case "put" -> TokenType.PUT;
+            case "clear" -> TokenType.CLEAR;
+            case "printc" -> TokenType.PRINTC;
+            case "printstr" -> TokenType.PRINTSTR;
+            default -> throw new ScanException("Invalid literal name.", line);
+        };
     }
     char peek() {
         try {
