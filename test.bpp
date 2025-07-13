@@ -1,5 +1,6 @@
-put 255, r1;
+put 48, r1;
 while r1 {
     dec r1, 1;
-    print r1;
+    inc r0, 1;
 };
+print r0;

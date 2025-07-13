@@ -1,4 +1,7 @@
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.PrintStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
@@ -11,6 +14,11 @@ public class Main {
             return;
         }
         String src = Files.readString(Paths.get(args[0]));
-        System.out.println(new Compiler().compile(new Scanner(src).scan()));
+        File out = new File(args[1]);
+        try (PrintStream output = new PrintStream(out)) {
+            output.print(new Compiler().compile(new Scanner(src).scan()));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

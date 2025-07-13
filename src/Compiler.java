@@ -16,7 +16,8 @@ public class Compiler {
         this.tokens = tokens;
         StringBuilder builder = new StringBuilder();
         while (!isAtEnd()) {
-            builder.append(compileStatement());
+            builder.append(compileStatement())
+                    .append("\n");
         }
         return builder.toString();
     }
